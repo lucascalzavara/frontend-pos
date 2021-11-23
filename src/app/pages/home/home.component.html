@@ -27,14 +27,19 @@
       </button>
     </div>
     <div class="col-6 d-flex align-items-center">
-      <span style="font-weight: bold; font-size: 25px;">Quantidade de ovos encontrados: {{quantidade_ovos}}</span>
+      <span style="font-weight: bold; font-size: 25px;">Quantidade de ovos encontrados: 
+        <span style="color: red;">{{quantidade_ovos}}</span>
+      </span>
     </div>
   </div>
   
   <div class="row d-flex">
     <div class="col-6">
       <img class="m-2 w-100" src="{{imagem_original}}" alt="">
-      <div class="d-flex justify-content-end">Imagem original</div>
+      <div class="d-flex justify-content-end">
+        Imagem original 
+        <span *ngIf="data_hora"> - capturada em {{data_hora | date:'dd/MM/yyyy hh:mm:ss'}}h</span>
+      </div>
     </div>
     <div class="col-6">
       <img class="m-2 w-100" src="{{imagem_processada}}" alt="">
