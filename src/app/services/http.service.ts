@@ -11,7 +11,19 @@ export class HttpService {
   url: string = "192.168.0.0";
 
 
-  capturarEProcessar() {
-    return this.http.get<any>(`${this.url}/capturarImagem`);
+  capturar() {
+    return this.http.get<any>(`${this.url}/capturarFoto`);
+  }
+
+  getFoto() {
+    return this.http.get<any>(`${this.url}/getFoto`);
+  }
+
+  getFotoProcessada() {
+    return this.http.get<any>(`${this.url}/getFotoProcessada`);
+  }
+
+  getQtdOvos() {
+    return this.http.get<any>(`${this.url}/getQtdOvos`);
   }
 }

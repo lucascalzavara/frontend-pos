@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   }
 
   capturar() {
-    this.httpService.capturarEProcessar().subscribe(res => {
+    this.httpService.capturar().subscribe(res => {
       this.data_hora = new Date();
     });
   }
