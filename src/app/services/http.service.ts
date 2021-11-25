@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  url: string = "192.168.0.0";
+  url: string = "http://localhost:5000";
 
 
   capturar() {
