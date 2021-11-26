@@ -26,23 +26,28 @@
         Capturar imagem e realizar contagem
       </button>
     </div>
-    <div class="col-6 d-flex align-items-center">
-      <span style="font-weight: bold; font-size: 25px;">Quantidade de ovos encontrados: 
+    <div class="col-6 d-flex align-items-center" *ngIf="quantidade_ovos">
+      <span style="font-weight: bold; font-size: 25px;">Quantidade de ovos encontrados:
         <span style="color: red;">{{quantidade_ovos}}</span>
       </span>
     </div>
+    <div class="col-6 d-flex align-items-center" *ngIf="!quantidade_ovos && timer">
+      <span style="font-weight: bold; font-size: 25px;">Carregando:
+        <span style="color: red;">{{timer}}</span>
+      </span>
+    </div>
   </div>
-  
+
   <div class="row d-flex">
-    <div class="col-6">
-      <img class="m-2 w-100" src="{{imagem_original}}" alt="">
+    <div class="col-6" *ngIf="imagem_original">
+      <img class="m-2 w-100" [src]="sanitize('data:image/*;base64, ' + _arrayBufferToBase64(imagem_original))" alt="">
       <div class="d-flex justify-content-end">
-        Imagem original 
+        Imagem original
         <span *ngIf="data_hora"> - capturada em {{data_hora | date:'dd/MM/yyyy hh:mm:ss'}}h</span>
       </div>
     </div>
-    <div class="col-6">
-      <img class="m-2 w-100" src="{{imagem_processada}}" alt="">
+    <div class="col-6" *ngIf="imagem_processada">
+      <img class="m-2 w-100" [src]="sanitize('data:image/*;base64, ' + _arrayBufferToBase64(imagem_processada))" alt="">
       <div class="d-flex justify-content-end">Imagem processada</div>
     </div>
   </div>

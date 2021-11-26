@@ -10,17 +10,21 @@ export class HttpService {
 
   url: string = "http://localhost:5000";
 
+  requestOptions: Object = {
+    responseType: 'arraybuffer'
+  }
+
 
   capturar() {
     return this.http.get<any>(`${this.url}/capturarFoto`);
   }
 
   getFoto() {
-    return this.http.get<any>(`${this.url}/getFoto`);
+    return this.http.get<any>(`${this.url}/getFoto`, this.requestOptions);
   }
 
   getFotoProcessada() {
-    return this.http.get<any>(`${this.url}/getFotoProcessada`);
+    return this.http.get<any>(`${this.url}/getFotoProcessada`, this.requestOptions);
   }
 
   getQtdOvos() {
