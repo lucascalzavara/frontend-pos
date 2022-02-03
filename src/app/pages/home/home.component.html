@@ -10,6 +10,11 @@
 </nav>
 
 <div class="container-mapa">
+  <div class="form-group">
+    <label for="enderecoBusca">endereço de busca</label>
+    <input [(ngModel)]="localizacao" class="form-control" id="enderecoBusca" name="idTcs" type="text">
+  </div>
+  <button (click)="buscarCidade()">buscar</button>
   <div id="brasil" class="map"></div>
 </div>
 

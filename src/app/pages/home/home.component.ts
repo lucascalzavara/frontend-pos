@@ -13,6 +13,7 @@ import TileLayer from 'ol/layer/Tile';
 import Vector from 'ol/source/Vector';
 import { Feature } from 'ol';
 import Point from 'ol/geom/Point';
+import { MapaService } from 'src/app/services/mapa.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ import Point from 'ol/geom/Point';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private sanitizer: DomSanitizer) { }
+  constructor(private httpService: HttpService, private sanitizer: DomSanitizer, private mapaService: MapaService) { }
 
   imagem_original: any = "";
   imagem_processada: string = "";
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
   timerInterval: any = null;
 
   mapa: any;
+  localizacao: string = "londrina";
 
   ngOnInit(): void {
   }
@@ -45,7 +47,7 @@ export class HomeComponent implements OnInit {
       ],
       view: new View({
         center: openLayer.fromLonLat([-51.16924, -23.31287]),
-        zoom: 17
+        zoom: 15
       })
     });
 
@@ -102,46 +104,53 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  capturar() {
-    this.timer = 32;
-    this.quantidade_ovos = 0
-    this.httpService.capturar().subscribe(res => {
-      this.data_hora = new Date();
-    });
-
-    this.timerInterval = setInterval(() => {
-      this.timer--;
-    }, 1000);
-
-    setTimeout(() => {
-      this.httpService.getFoto().subscribe(res => {
-        this.imagem_original = res;
-      });
-
-      this.httpService.getFotoProcessada().subscribe(res => {
-        this.imagem_processada = res;
-      });
-
-      this.httpService.getQtdOvos().subscribe(res => {
-        this.quantidade_ovos = res;
-      });
-      clearTimeout(this.timerInterval);
-      this.timer = 0;
-    }, 32000);
+  buscarCidade(): any {
+    this.mapaService.buscarCidade(this.localizacao).subscribe(res => {
+      var coord = openLayer.fromLonLat([res[0].lon, res[0].lat]);
+      this.mapa.getView().animate({center: coord, zoom: 15});
+    })
   }
 
-  _arrayBufferToBase64(buffer: any) {
-    var binary = '';
-    var bytes = new Uint8Array(buffer);
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-      binary += String.fromCharCode(bytes[i]);
-    }
-    return btoa(binary);
-  }
+  // capturar() {
+  //   this.timer = 32;
+  //   this.quantidade_ovos = 0
+  //   this.httpService.capturar().subscribe(res => {
+  //     this.data_hora = new Date();
+  //   });
 
-  sanitize(url: string) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
-  }
+  //   this.timerInterval = setInterval(() => {
+  //     this.timer--;
+  //   }, 1000);
+
+  //   setTimeout(() => {
+  //     this.httpService.getFoto().subscribe(res => {
+  //       this.imagem_original = res;
+  //     });
+
+  //     this.httpService.getFotoProcessada().subscribe(res => {
+  //       this.imagem_processada = res;
+  //     });
+
+  //     this.httpService.getQtdOvos().subscribe(res => {
+  //       this.quantidade_ovos = res;
+  //     });
+  //     clearTimeout(this.timerInterval);
+  //     this.timer = 0;
+  //   }, 32000);
+  // }
+
+  // _arrayBufferToBase64(buffer: any) {
+  //   var binary = '';
+  //   var bytes = new Uint8Array(buffer);
+  //   var len = bytes.byteLength;
+  //   for (var i = 0; i < len; i++) {
+  //     binary += String.fromCharCode(bytes[i]);
+  //   }
+  //   return btoa(binary);
+  // }
+
+  // sanitize(url: string) {
+  //   return this.sanitizer.bypassSecurityTrustUrl(url);
+  // }
 
 }

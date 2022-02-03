@@ -24,7 +24,13 @@
     width: 100%;
   }
 
-  .container-mapa {
-      height: 100%;
-      margin: 50px;
-  }
+.container-mapa {
+    height: 100%;
+    margin: 50px;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
