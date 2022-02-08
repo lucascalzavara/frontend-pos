@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { HttpService } from 'src/app/services/http.service';
 
 import Map from 'ol/Map';
@@ -22,7 +22,9 @@ import { MapaService } from 'src/app/services/mapa.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private sanitizer: DomSanitizer, private mapaService: MapaService) { }
+  constructor(private httpService: HttpService, private sanitizer: DomSanitizer, private mapaService: MapaService, private titleService: Title) { 
+    this.titleService.setTitle("SisMID - Sistema de Monitoramento de Infestação de Dengue");
+  }
 
   imagem_original: any = "";
   imagem_processada: string = "";
@@ -32,7 +34,7 @@ export class HomeComponent implements OnInit {
   timerInterval: any = null;
 
   mapa: any;
-  localizacao: string = "londrina";
+  localizacao: string = "Londrina";
 
   ngOnInit(): void {
   }

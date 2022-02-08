@@ -29,8 +29,12 @@
     margin: 50px;
 }
 
-input {
-    border: none;
-    border-bottom: 1px solid black;
-    border-radius: 0;
+h1 {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+h2 {
+    font-weight: lighter;
+    font-size: 20px;
 }

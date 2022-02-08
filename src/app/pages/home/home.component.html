@@ -1,21 +1,33 @@
 <nav class="navbar navbar-light bg-light p-3">
   <div class="d-flex">
     <a class="navbar-brand" href="#">
-      <img src="../../../assets/image/logo_uel.png" width="200" class="d-inline-block align-top" alt="">
+      <img src="../../../assets/image/logo-sismid.svg" width="200" class="d-inline-block align-top" alt="">
+      <img src="../../../assets/image/logo_uel.png" width="150" class="d-inline-block align-top" alt="">
     </a>
-    <span class="navbar-imagem">
-      SisMID - Sistema de Monitoramento de Infestação de Dengue
-    </span>
   </div>
 </nav>
 
 <div class="container-mapa">
-  <div class="form-group">
-    <label for="enderecoBusca">endereço de busca</label>
-    <input [(ngModel)]="localizacao" class="form-control" id="enderecoBusca" name="idTcs" type="text">
+  <div class="row mb-4">
+    <div class="col-6">
+      <h1>Consulta de infestação por localização</h1>
+      <h2>Verifique a índice de infestação por localização em sua cidade, rua, bairro...</h2>
+    </div>
+    <div class="col-6">
+      <div class="d-flex justify-content-end">
+        <div class="input-group mb-3 w-50">
+          <input type="text" class="form-control" placeholder="endereço de busca" aria-label="endereço de busca"
+            aria-describedby="basic-addon2" [(ngModel)]="localizacao">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="buscarCidade()">buscar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <button (click)="buscarCidade()">buscar</button>
+
   <div id="brasil" class="map"></div>
+
 </div>
 
 <!-- <div class="container">
