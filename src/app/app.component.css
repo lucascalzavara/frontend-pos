@@ -1,0 +1,15 @@
+.navbar-imagem {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 21px;
+}
+
+.navbar {
+    background: rgb(255,255,255);
+    background: #28864a26;
+}
+
+.logo-sismid{
+    border-right: 1px solid gray;
+    margin-right: 5px;
+}

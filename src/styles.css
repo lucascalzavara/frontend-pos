@@ -1,2 +1,13 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "../node_modules/ol/ol.css";
+
+.btn-outline-secondary {
+    color: #28864a;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #28864a;
+    border-color: #6c757d;
+}
