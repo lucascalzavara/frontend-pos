@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { HttpService } from 'src/app/services/http.service';
 
@@ -11,7 +11,7 @@ import OSM from 'ol/source/OSM';
 import * as openLayer from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
 import Vector from 'ol/source/Vector';
-import { Feature } from 'ol';
+import { Feature, Overlay } from 'ol';
 import Point from 'ol/geom/Point';
 import { MapaService } from 'src/app/services/mapa.service';
 
@@ -20,9 +20,10 @@ import { MapaService } from 'src/app/services/mapa.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private sanitizer: DomSanitizer, private mapaService: MapaService, private titleService: Title) { 
+  constructor(private httpService: HttpService, private sanitizer: DomSanitizer, private mapaService: MapaService, private titleService: Title) {
     this.titleService.setTitle("SisMID - Sistema de Monitoramento de Infestação de Dengue");
   }
 
@@ -35,6 +36,11 @@ export class HomeComponent implements OnInit {
 
   mapa: any;
   localizacao: string = "Londrina";
+  overlay: any;
+  container: any;
+  content: any;
+
+  arrayMensagem: Array<string> = [];
 
   ngOnInit(): void {
   }
@@ -54,15 +60,18 @@ export class HomeComponent implements OnInit {
     });
 
     var ponto_1 = new Feature({
-      geometry: new Point(openLayer.fromLonLat([-51.16924, -23.31287]))
+      geometry: new Point(openLayer.fromLonLat([-51.16924, -23.31287])),
+      name: '<b>Infestação alta!</b><br/>Quantidade de ovos encontrados: 10.000+'
     });
 
     var ponto_2 = new Feature({
-      geometry: new Point(openLayer.fromLonLat([-51.15999, -23.31207]))
+      geometry: new Point(openLayer.fromLonLat([-51.15999, -23.31207])),
+      name: '<b>Infestação média!</b><br/>Quantidade de ovos encontrados: 5.000+'
     });
 
     var ponto_3 = new Feature({
-      geometry: new Point(openLayer.fromLonLat([-51.1655, -23.3123]))
+      geometry: new Point(openLayer.fromLonLat([-51.1655, -23.3123])),
+      name: '<b>Infestação leve!</b><br/>Quantidade de ovos encontrados: 2.000+'
     });
 
     ponto_1.setStyle(new Style({
@@ -76,7 +85,7 @@ export class HomeComponent implements OnInit {
 
     ponto_2.setStyle(new Style({
       image: new Icon({
-        color: '#fd0000',
+        color: '#fd7e14',
         crossOrigin: 'anonymous',
         scale: 0.05,
         src: '../../../assets/image/circulo.png',
@@ -85,7 +94,7 @@ export class HomeComponent implements OnInit {
 
     ponto_3.setStyle(new Style({
       image: new Icon({
-        color: '#fd7e14',
+        color: '#00c706',
         crossOrigin: 'anonymous',
         scale: 0.05,
         src: '../../../assets/image/circulo.png',
@@ -100,16 +109,48 @@ export class HomeComponent implements OnInit {
 
     this.mapa.addLayer(layer);
 
+
+    //MODAL AO CLICAR NOS PONTOS
+    this.container = document.getElementById('popup');
+    this.content = document.getElementById('popup-content');
+    this.overlay = new Overlay({
+      element: this.container,
+      autoPan: {
+        animation: {
+          duration: 250,
+        },
+      },
+    });
+
+    this.mapa.addOverlay(this.overlay);
+
+    this.mapa.on('singleclick', (event: any) => {
+      this.overlay.setPosition(undefined);
+      this.mapa.forEachFeatureAtPixel(event.pixel, (feature: any) => {
+        this.abrirPopup(event, feature);
+      })
+    });
+    //FINAL DA MODAL POPUP
+
+
     //obtem as coordenadas no click no mapa
-    this.mapa.on('click', function (evt: any) {
+    this.mapa.on('click', (evt: any) => {
       console.log(openLayer.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
     });
+  }
+
+  abrirPopup(event: any, feature: any) {
+    if (this.mapa.hasFeatureAtPixel(event.pixel) === true) {
+      var coordinate = event.coordinate;
+      this.content.innerHTML = feature.values_.name;
+      this.overlay.setPosition(coordinate);
+    } 
   }
 
   buscarCidade(): any {
     this.mapaService.buscarCidade(this.localizacao).subscribe(res => {
       var coord = openLayer.fromLonLat([res[0].lon, res[0].lat]);
-      this.mapa.getView().animate({center: coord, zoom: 15});
+      this.mapa.getView().animate({ center: coord, zoom: 15 });
     })
   }
 
