@@ -1,37 +1,36 @@
-<div class="container-mapa">
-  <div class="row mb-4">
-    <div class="col-6">
-      <h1>Consulta de infestação por localização</h1>
-      <h2>Verifique o índice de infestação por localização em sua cidade, rua, bairro...</h2>
-    </div>
-    <div class="col-6">
-      <div class="d-flex justify-content-end">
-        <div class="input-group mb-3 w-50">
-          <input type="text" class="form-control" placeholder="endereço de busca" aria-label="endereço de busca"
-            aria-describedby="basic-addon2" [(ngModel)]="localizacao">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" (click)="buscarCidade()">buscar</button>
-          </div>
+<div class="row mb-4">
+  <div class="col-6">
+    <h1>Consulta de infestação por localização</h1>
+    <h2>Verifique o índice de infestação por localização em sua cidade, rua, bairro...</h2>
+  </div>
+  <div class="col-6">
+    <div class="d-flex justify-content-end">
+      <div class="input-group mb-3 w-50">
+        <input type="text" class="form-control" placeholder="endereço de busca" aria-label="endereço de busca"
+          aria-describedby="basic-addon2" [(ngModel)]="localizacao">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="buscarCidade()">buscar</button>
         </div>
       </div>
     </div>
   </div>
-  
-  <div class="row">
-    <div class="d-flex justify-content-end mb-1" style="line-height: 15px; font-weight: lighter;">
-      <div class="mr-2"><div class="quadrado critico mr-1"></div>infestação crítica</div>
-      <div class="mr-2"><div class="quadrado moderado mr-1"></div>infestação moderada</div>
-      <div><div class="quadrado leve mr-1"></div>infestação leve</div>
+</div>
+
+<div class="row">
+  <div class="d-flex justify-content-end mb-1" style="line-height: 15px; font-weight: lighter;">
+    <div class="mr-2">
+      <div class="quadrado critico mr-1"></div>infestação crítica
+    </div>
+    <div class="mr-2">
+      <div class="quadrado moderado mr-1"></div>infestação moderada
+    </div>
+    <div>
+      <div class="quadrado leve mr-1"></div>infestação leve
     </div>
   </div>
-  
-  <div id="brasil" class="map"></div>
-
-  <div id="popup" class="ol-popup">
-    <div id="popup-content"></div>
-  </div>
-
 </div>
+
+<app-mapa></app-mapa>
 
 <!-- <div class="container">
   <div class="row">

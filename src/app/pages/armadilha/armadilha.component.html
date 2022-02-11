@@ -1,0 +1,53 @@
+<div class="row mb-4">
+    <h1>Cadastro de dados da armadilha</h1>
+    <h2>Armazene as informaçoes coletadas, por armadilha e região de coleta.</h2>
+</div>
+<div class="row mb-2">
+    <div class="col-6">
+        <div class="row mb-2">
+            <div class="col-6">
+                <label id="latitude">Latitude</label>
+                <input type="text" class="form-control" placeholder="Ex.: -22.1235" aria-label="Latitude"
+                    [(ngModel)]="armadilha.Latitude" aria-describedby="latitude">
+            </div>
+            <div class="col-6">
+                <span id="longitude">Longitude</span>
+                <input type="text" class="form-control" placeholder="Ex.: -55.1235" aria-label="Longitude"
+                    [(ngModel)]="armadilha.Longitude" aria-describedby="longitude">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-6">
+                <label id="codigo">Código de identificação</label>
+                <input type="text" class="form-control" placeholder="Ex.: 12345" aria-label="Código de identificação"
+                    [(ngModel)]="armadilha.Codigo" aria-describedby="codigo">
+            </div>
+            <div class="col-6">
+                <span id="cidade">Cidade</span>
+                <select class="form-select" aria-label="Cidade" [(ngModel)]="armadilha.Cidade">
+                    <option selected>Escolha a cidade</option>
+                    <option value="1">Londrina</option>
+                    <option value="2">Cambé</option>
+                    <option value="3">Arapongas</option>
+                    <option value="3">Cornelio Procopio</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-12">
+                <label for="pontoReferencia">Ponto de referência</label>
+                <textarea class="form-control" id="pontoReferencia" rows="3" [(ngModel)]="armadilha.PontoReferencia"></textarea>
+            </div>
+        </div>
+        <div class="row d-flex">
+            <div class="col-12">
+                <button class="btn btn-primary justify-content-end">cadastrar</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <app-mapa (latitude)="setLatitude($event)" (longitude)="setLongitude($event)" [edicao]="true"
+                  [codigoArmadilha]="armadilha.Codigo" [pontoReferencia]="armadilha.PontoReferencia"
+        ></app-mapa>
+    </div>
+</div>

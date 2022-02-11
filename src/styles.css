@@ -11,3 +11,21 @@
     background-color: #28864a;
     border-color: #6c757d;
 }
+
+.mr-1 {
+    margin-right: 0.5rem;
+}
+
+.mr-2 {
+    margin-right: 2rem;
+}
+
+h1 {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+h2 {
+    font-weight: lighter;
+    font-size: 20px;
+}

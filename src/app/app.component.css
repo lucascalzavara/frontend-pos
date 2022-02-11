@@ -6,10 +6,15 @@
 
 .navbar {
     background: rgb(255,255,255);
-    background: #28864a26;
+    background: #95959526;
 }
 
 .logo-sismid{
     border-right: 1px solid gray;
     margin-right: 5px;
+}
+
+.container-mapa {
+    height: 100%;
+    margin: 50px;
 }
